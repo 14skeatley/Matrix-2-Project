@@ -29,13 +29,13 @@ namespace matrix2
         {
             if (this.rBtnMultiply.Checked)
             {
-                this.C = this.A * this.B;
-                this.txtMatrixC.Text = this.C.ToString();
+                C = this.A * this.B;
+                this.txtMatrixC.Text = C.ToString();
             }
             else if (this.rBtnAdd.Checked)
             {
-                this.C = this.A + this.B;
-                this.txtMatrixC.Text = this.C.ToString();
+                C = this.A + this.B;
+                this.txtMatrixC.Text = C.ToString();
             }
             else if(this.rBtnSubtract.Checked)
             {
