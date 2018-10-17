@@ -11,10 +11,7 @@ namespace matrix2
 
         public int Cols => this.matrix.GetLength(1);
         public int Rows => this.matrix.GetLength(0);
-        
-        //j = 0
         public double this[int i, int j] { get { return this.matrix[i, j]; }  set { this.matrix[i, j] = value; } }
-        
         public double[,] matrix;
 
         public Matrix(int rows, int cols)
@@ -151,21 +148,27 @@ namespace matrix2
             {
                 throw new ArgumentNullException();
             }
-
+            double sum = 0;
             int rows = this.Rows;
             int cols = this.Cols;
             Matrix multiplyRet = new Matrix(rows, cols);
 
             for (int i = 0; i < rows; i++)
             {
-                for (int j = 0; j < cols; j++)
+                for (int j = 0; j < A.Cols; j++)
                 {
-                    for (int k = 0; i < rows; k++)
+                    multiplyRet[i, j] = 0;
+                    for (i = 0; i < rows; i++)
                     {
-                        Matrix temp = multiplyRet;
-                        int holderA = i;
-                        int holderB = j;
-                        temp[i, j] += this[k, i] * A[k, j];
+                        for (j = 0; j < A.Cols; j++)
+                        {
+                            sum = 0;
+                            for (int k = 0; k < cols; k++)
+                            {
+                                sum = sum + this.matrix[i, k] * A[k, j];
+                                multiplyRet[i, j] = sum;
+                            }
+                        }
                     }
                 }
             }
@@ -177,14 +180,14 @@ namespace matrix2
             Matrix subtractRet = new Matrix(B.Rows, A.Cols);
             if (A.dimsEqual(B))
             {
-                if ((Equals(A, null)) || (Equals(B, null)))
-                {
+                //if ((Equals(A, null)) || (Equals(B, null)))
+                //{
                     subtractRet = A.subtract(B);
-                }
-                else
-                {
+                //}
+               // else
+                //{
                     //throw null value exception
-                }
+                //}
             }
             else
             {
@@ -198,14 +201,14 @@ namespace matrix2
             Matrix addRet = new Matrix(B.Rows, A.Cols);
             if (A.dimsEqual(B))
             {
-                if((Equals(A, null)) || (Equals(B, null)))
-                {
+                //if((Equals(A, null)) || (Equals(B, null)))
+                //{
                     addRet = A.add(B); 
-                }
-                else
-                {
+                //}
+                //else
+                //{
                     //throw null value exception
-                }
+                //}
             }
             else
             {
@@ -221,13 +224,13 @@ namespace matrix2
 
         public static Matrix operator *(Matrix A, Matrix B)
         {
-            if((A.Rows != B.Cols) || (A.Cols != B.Rows)) {
+            /*if((A.Rows != B.Cols) || (A.Cols != B.Rows)) {
                 //throw dim exception
             }
             if((Equals(A, null)) || (Equals(B, null)))
             {
                 //throw null exception
-            }
+            }*/
             return A.multiply(B);
         }//end of *
 
@@ -242,7 +245,7 @@ namespace matrix2
 
         public void populateOrd()
         {
-            int increment = 1;
+            double increment = 1;
 
             for (int i = 0; i < this.Rows; i++)
             {
@@ -315,20 +318,6 @@ namespace matrix2
 
         public override string ToString()
         {
-            /*StringBuilder matrixString = new StringBuilder();
-            int rows = this.Rows;
-            int cols = this.Cols;
-
-            for (int i = 0; i < rows; i++)
-            {
-                for (int j = 0; j < cols; j++)
-                {
-                    matrixString.Append(this.matrix[i, j]);
-                    matrixString.Append("    ");
-                }
-                matrixString.AppendLine();
-            }
-            return matrixString.ToString();*/
             string retString = "";
 
             for (int i = 0; i < this.Rows; i++)
